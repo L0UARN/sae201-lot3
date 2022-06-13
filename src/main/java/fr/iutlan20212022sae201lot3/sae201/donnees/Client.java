@@ -25,7 +25,7 @@ public class Client {
 
     // getters
     public Camping getCamping() {
-        
+        return camping;
     }
 
     public String getNom() {
