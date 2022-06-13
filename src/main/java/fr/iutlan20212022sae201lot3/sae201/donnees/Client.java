@@ -1,9 +1,6 @@
 package fr.iutlan20212022sae201lot3.sae201.donnees;
 
 public class Client {
-    // variables d'instances
-    private Camping camping;
-
     private String nom;
     private String prenom;
     private int codePostal;
@@ -11,21 +8,13 @@ public class Client {
     private String pays;
     private String telephone;
 
-    // constructeur
-    public Client(Camping camping, String nom, String prenom, int codePostal, String ville, String pays, String telephone) {
-        this.camping = camping;
-
+    public Client(String nom, String prenom, int codePostal, String ville, String pays, String telephone) {
         this.nom = nom;
         this.prenom = prenom;
         this.codePostal = codePostal;
         this.ville = ville;
         this.pays = pays;
         this.telephone = telephone;
-    }
-
-    // getters
-    public Camping getCamping() {
-        return camping;
     }
 
     public String getNom() {
@@ -51,6 +40,4 @@ public class Client {
     public String getTelephone() {
         return this.telephone;
     }
-
-
 }
