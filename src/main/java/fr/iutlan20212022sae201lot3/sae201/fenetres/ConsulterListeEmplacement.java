@@ -5,6 +5,7 @@ import java.util.*;
 import fr.iutlan20212022sae201lot3.sae201.donnees.Camping;
 import fr.iutlan20212022sae201lot3.sae201.donnees.Emplacement;
 import fr.iutlan20212022sae201lot3.sae201.donnees.NomCategorie;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.*;
 import javafx.scene.*;
 import javafx.scene.control.Button;
@@ -35,7 +36,7 @@ public class ConsulterListeEmplacement extends Stage{
     private Button BTNannuleRecherche = new Button("Annuler la recherche");
 
     //Bouton pour creer un emplacement
-    private Button BTNcreerEmplacement = new Button("Cr�er un emplacement");
+    private Button BTNcreerEmplacement = new Button("Créer un emplacement");
 
     //Bouton pour supprimer un emplacement
     private Button BTNsupprimerEmplacement = new Button("Supprimer un emplacement");
@@ -48,9 +49,9 @@ public class ConsulterListeEmplacement extends Stage{
 
     private VBox boutonFiltre = new VBox();
     private RadioButton RBTNfiltreCroi= new RadioButton("Tri croissant");
-    private RadioButton RBTNfiltreCat= new RadioButton("Tri par cat�gorie");
-    private RadioButton RBTNfiltreDecroi= new RadioButton("Tri d�croissant");
-    //Permet d'avoir seulement un bouton de s�lectionn�
+    private RadioButton RBTNfiltreCat= new RadioButton("Tri par catégorie");
+    private RadioButton RBTNfiltreDecroi= new RadioButton("Tri décroissant");
+    //Permet d'avoir seulement un bouton de sélectionné
     private ToggleGroup groupeRB = new ToggleGroup();
 
 
@@ -101,20 +102,20 @@ public class ConsulterListeEmplacement extends Stage{
     }
 
     public Parent creerContenu() {
-        // LISTE DES CHOSES � FAIRE:
+        // LISTE DES CHOSES À FAIRE:
 
         /*
          * CREER UN BOUTON MODIFIER ET AJOUTER
          */
 
         tableEmplacement.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        //Cr�ation des colonnes des tables
+        //Création des colonnes des tables
 
 
-        TableColumn<Emplacement,Integer> colonne1 = new TableColumn<Emplacement,Integer>("Num�ro");
+        TableColumn<Emplacement,Integer> colonne1 = new TableColumn<Emplacement,Integer>("Numéro");
         colonne1.setCellValueFactory(new PropertyValueFactory<Emplacement,Integer>("numero"));
         tableEmplacement.getColumns().add(colonne1);
-        TableColumn<Emplacement, NomCategorie> colonne2 = new TableColumn<Emplacement,NomCategorie>("Cat�gorie");
+        TableColumn<Emplacement, NomCategorie> colonne2 = new TableColumn<Emplacement,NomCategorie>("Catégorie");
         colonne2.setCellValueFactory(new PropertyValueFactory<Emplacement, NomCategorie>("categorie"));
         tableEmplacement.getColumns().add(colonne2);
 
@@ -129,7 +130,7 @@ public class ConsulterListeEmplacement extends Stage{
         labelRechercheEmplacement.setFont(new Font("Arial", 19));
         labelFiltrerEmplacement.setFont(new Font("Arial", 19));
 
-        //Taille des �l�ments
+        //Taille des éléments
         BTNvalideRecherche.setPrefSize(250.0, 25.0);
         BTNannuleRecherche.setPrefSize(250.0, 25.0);
         BTNsupprimerEmplacement.setPrefSize(250.0, 40.0);
@@ -140,7 +141,7 @@ public class ConsulterListeEmplacement extends Stage{
         boutonFiltre.setPrefSize(250.0, 250.0);
 
 
-        //Positionnement des �l�ments:
+        //Positionnement des éléments:
         //POS Label txt
         AnchorPane.setTopAnchor(labelRechercheEmplacement, 10.0);
         AnchorPane.setRightAnchor(labelRechercheEmplacement, 25.0);
@@ -226,6 +227,8 @@ public class ConsulterListeEmplacement extends Stage{
             tableEmplacement.setItems(listeEmplacementObservable);
         });
 
+        BooleanBinding emplacementNonSelectionne = tableEmplacement.getSelectionModel().selectedIndexProperty().isEqualTo(-1);
+        BTNsupprimerEmplacement.disableProperty().bind(emplacementNonSelectionne);
 
         racine.getChildren().addAll(tableEmplacement,labelRechercheEmplacement,
                 TFsaisieRecherche,BTNvalideRecherche,
