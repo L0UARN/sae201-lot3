@@ -7,6 +7,7 @@ import fr.iutlan20212022sae201lot3.sae201.donnees.NomCategorie;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -61,11 +62,13 @@ public class CreerEmplacement extends Stage {
 
     Parent contenu() {
         // Condition pour griser le bouton Creer
+        IntegerBinding valeurConvvertie = Bindings.createIntegerBinding(() -> Integer.parseInt(tfNumero.getText()), tfNumero.textProperty());
+
         BooleanBinding manque = Bindings.or(
           Bindings.equal(tfNumero.textProperty(), ""),
           Bindings.or(
-            Bindings.greaterThan(tfNumero.textProperty(), String.valueOf(180)),
-            Bindings.lessThan(tfNumero.textProperty(), String.valueOf(1))
+            Bindings.greaterThan(valeurConvvertie, 180),
+            Bindings.lessThan(valeurConvvertie, 1)
           )
         );
 
