@@ -2,6 +2,7 @@ package fr.iutlan20212022sae201lot3.sae201.fenetres;
 
 import java.util.*;
 
+import fr.iutlan20212022sae201lot3.sae201.Main;
 import fr.iutlan20212022sae201lot3.sae201.donnees.Camping;
 import fr.iutlan20212022sae201lot3.sae201.donnees.Emplacement;
 import fr.iutlan20212022sae201lot3.sae201.donnees.NomCategorie;
@@ -77,6 +78,10 @@ public class ConsulterListeEmplacement extends Stage{
         this.setScene(new Scene(creerContenu()));
     }
 
+    public void init() {
+        tableEmplacement.setItems(listeEmplacementObservable);
+    }
+
     private String categorieToString(NomCategorie nomCategorie) {
         String resultat;
 
@@ -123,9 +128,6 @@ public class ConsulterListeEmplacement extends Stage{
 
         boutonFiltre.getChildren().addAll(RBTNfiltreCroi,RBTNfiltreCat,RBTNfiltreDecroi);
         groupeRB.getToggles().addAll(RBTNfiltreCroi,RBTNfiltreCat,RBTNfiltreDecroi);
-
-
-        tableEmplacement.setItems(listeEmplacementObservable);
 
         labelRechercheEmplacement.setFont(new Font("Arial", 19));
         labelFiltrerEmplacement.setFont(new Font("Arial", 19));
@@ -229,6 +231,9 @@ public class ConsulterListeEmplacement extends Stage{
 
         BooleanBinding emplacementNonSelectionne = tableEmplacement.getSelectionModel().selectedIndexProperty().isEqualTo(-1);
         BTNsupprimerEmplacement.disableProperty().bind(emplacementNonSelectionne);
+
+        BTNsupprimerEmplacement.setOnAction(e -> Main.ouvrirSupprimer());
+        BTNcreerEmplacement.setOnAction(e -> Main.ouvrirCreer());
 
         racine.getChildren().addAll(tableEmplacement,labelRechercheEmplacement,
                 TFsaisieRecherche,BTNvalideRecherche,
