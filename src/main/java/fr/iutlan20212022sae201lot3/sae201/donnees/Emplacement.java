@@ -16,4 +16,8 @@ public class Emplacement {
     public void setCategorie(NomCategorie categorie) {
         this.categorie = categorie;
     }
+
+    public NomCategorie getCategorie() {
+        return categorie;
+    }
 }
