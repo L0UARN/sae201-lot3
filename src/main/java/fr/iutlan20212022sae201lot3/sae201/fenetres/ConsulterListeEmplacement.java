@@ -82,30 +82,6 @@ public class ConsulterListeEmplacement extends Stage{
         listeEmplacementObservable.addAll(Main.getEmplacements());
     }
 
-    private String categorieToString(NomCategorie nomCategorie) {
-        String resultat;
-
-        switch (nomCategorie) {
-            case EMPLACEMENT_SIMPLE:
-                resultat = "Emplacement Simple";
-                break;
-
-            case MOBILHOME_GRAND_LUXE:
-                resultat = "Mobil-home Grand Luxe";
-                break;
-
-            case MOBILHOME_STANDARD:
-                resultat = "Mobil-home Standard";
-                break;
-
-            default:
-                resultat = "Inconnu";
-                break;
-        }
-
-        return resultat;
-    }
-
     public Parent creerContenu() {
         // LISTE DES CHOSES À FAIRE:
 
@@ -195,7 +171,7 @@ public class ConsulterListeEmplacement extends Stage{
 
             //ON recupere la saisie de l'utilisateur et on compare avec les valeurs du tableau
             for  (int i=0;i<listeEmplacementObservable.size();i++) {
-                if (String.valueOf(tableEmplacement.getItems().get(i).getNumero()).contains(emplacementChoisi)||categorieToString(tableEmplacement.getItems().get(i).getCategorie()).toLowerCase(Locale.ROOT).contains(emplacementChoisi)) {
+                if (String.valueOf(tableEmplacement.getItems().get(i).getNumero()).contains(emplacementChoisi)||tableEmplacement.getItems().get(i).getCategorie().toString().toLowerCase(Locale.ROOT).contains(emplacementChoisi)) {
                     listeCorrespondance.add(tableEmplacement.getItems().get(i));
                 }
             }
