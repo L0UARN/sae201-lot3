@@ -3,67 +3,72 @@ package fr.iutlan20212022sae201lot3.sae201.donnees;
 import java.util.ArrayList;
 
 public class Camping {
-    private ArrayList<Categorie> categories;
-    private ArrayList<Client> clients;
-    private ArrayList<Contrat> contrats;
-    private ArrayList<Emplacement> emplacements;
-    private ArrayList<Prestation> prestations;
-    private ArrayList<Reservation> reservations;
+    private static ArrayList<Categorie> categories = new ArrayList<>();
+    private static ArrayList<Client> clients = new ArrayList<>();
+    private static ArrayList<Contrat> contrats = new ArrayList<>();
+    private static ArrayList<Emplacement> emplacements = new ArrayList<>();
+    private static ArrayList<Prestation> prestations = new ArrayList<>();
+    private static ArrayList<Reservation> reservations = new ArrayList<>();
 
-    public Camping() {
-        this.categories = new ArrayList<>();
-        this.clients = new ArrayList<>();
-        this.contrats = new ArrayList<>();
-        this.emplacements = new ArrayList<>();
-        this.prestations = new ArrayList<>();
-        this.reservations = new ArrayList<>();
+    public static void init() {
+        emplacements.add(new Emplacement(1, NomCategorie.EMPLACEMENT_SIMPLE));
+        emplacements.add(new Emplacement(2, NomCategorie.MOBILHOME_STANDARD));
+        emplacements.add(new Emplacement(3, NomCategorie.EMPLACEMENT_SIMPLE));
+        emplacements.add(new Emplacement(4, NomCategorie.MOBILHOME_GRAND_LUXE));
+        emplacements.add(new Emplacement(5, NomCategorie.MOBILHOME_GRAND_LUXE));
+        emplacements.add(new Emplacement(6, NomCategorie.MOBILHOME_STANDARD));
+        emplacements.add(new Emplacement(7, NomCategorie.EMPLACEMENT_SIMPLE));
     }
 
-    public void ajouterCategorie(Categorie categorie) {
-        this.categories.add(categorie);
+    public static void ajouterCategorie(Categorie categorie) {
+        categories.add(categorie);
     }
 
-    public void ajouterClient(Client client) {
-        this.clients.add(client);
+    public static void ajouterClient(Client client) {
+        clients.add(client);
     }
 
-    public void ajouterContrat(Contrat contrat) {
-        this.contrats.add(contrat);
+    public static void ajouterContrat(Contrat contrat) {
+        contrats.add(contrat);
     }
 
-    public void ajouterEmplacement(Emplacement emplacement) {
-        this.emplacements.add(emplacement);
+    public static void ajouterEmplacement(Emplacement emplacement) {
+        emplacements.add(emplacement);
     }
 
-    public void ajouterPrestation(Prestation prestation) {
-        this.prestations.add(prestation);
+    public static void ajouterPrestation(Prestation prestation) {
+        prestations.add(prestation);
     }
 
-    public void ajouterReservation(Reservation reservation) {
-        this.reservations.add(reservation);
+    public static void ajouterReservation(Reservation reservation) {
+        reservations.add(reservation);
     }
 
-    public void supprimerCategorie(Categorie categorie) {
-        this.categories.remove(categorie);
+    public static void supprimerCategorie(Categorie categorie) {
+        categories.remove(categorie);
     }
 
-    public void supprimerClient(Client client) {
-        this.clients.remove(client);
+    public static void supprimerClient(Client client) {
+        clients.remove(client);
     }
 
-    public void supprimerContrat(Contrat contrat) {
-        this.contrats.remove(contrat);
+    public static void supprimerContrat(Contrat contrat) {
+        contrats.remove(contrat);
     }
 
-    public void supprimerEmplacement(Emplacement emplacement) {
-        this.emplacements.remove(emplacement);
+    public static void supprimerEmplacement(Emplacement emplacement) {
+        emplacements.remove(emplacement);
     }
 
-    public void supprimerPrestation(Prestation prestation) {
-        this.prestations.remove(prestation);
+    public static void supprimerPrestation(Prestation prestation) {
+        prestations.remove(prestation);
     }
 
-    public void supprimerReservation(Reservation reservation) {
-        this.reservations.remove(reservation);
+    public static void supprimerReservation(Reservation reservation) {
+        reservations.remove(reservation);
+    }
+
+    public static ArrayList<Emplacement> getEmplacements() {
+        return emplacements;
     }
 }
