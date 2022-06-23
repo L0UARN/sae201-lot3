@@ -79,7 +79,7 @@ public class ConsulterListeEmplacement extends Stage{
     }
 
     public void init() {
-        tableEmplacement.setItems(listeEmplacementObservable);
+        listeEmplacementObservable.addAll(Main.getEmplacements());
     }
 
     private String categorieToString(NomCategorie nomCategorie) {
@@ -115,7 +115,7 @@ public class ConsulterListeEmplacement extends Stage{
 
         tableEmplacement.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         //Création des colonnes des tables
-
+        tableEmplacement.setItems(listeEmplacementObservable);
 
         TableColumn<Emplacement,Integer> colonne1 = new TableColumn<Emplacement,Integer>("Numéro");
         colonne1.setCellValueFactory(new PropertyValueFactory<Emplacement,Integer>("numero"));
@@ -123,8 +123,6 @@ public class ConsulterListeEmplacement extends Stage{
         TableColumn<Emplacement, NomCategorie> colonne2 = new TableColumn<Emplacement,NomCategorie>("Catégorie");
         colonne2.setCellValueFactory(new PropertyValueFactory<Emplacement, NomCategorie>("categorie"));
         tableEmplacement.getColumns().add(colonne2);
-
-        listeEmplacementObservable.addAll(Camping.getEmplacements());
 
         boutonFiltre.getChildren().addAll(RBTNfiltreCroi,RBTNfiltreCat,RBTNfiltreDecroi);
         groupeRB.getToggles().addAll(RBTNfiltreCroi,RBTNfiltreCat,RBTNfiltreDecroi);
