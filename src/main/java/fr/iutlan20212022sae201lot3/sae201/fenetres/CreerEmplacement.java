@@ -37,10 +37,6 @@ public class CreerEmplacement extends Stage {
     private Button bnAnnuler = new Button("Annuler");
 
     public CreerEmplacement() {
-//        arCategorie.add(new Categorie(NomCategorie.EMPLACEMENT_SIMPLE, 15, 50.0f, 5));
-//        arCategorie.add(new Categorie(NomCategorie.MOBILHOME_GRAND_LUXE, 12, 40.0f, 3));
-//        arCategorie.add(new Categorie(NomCategorie.MOBILHOME_STANDARD, 10, 30.0f, 2));
-
         this.setTitle("Créer un emplacement");
         setWidth(700);
         setHeight(700);
