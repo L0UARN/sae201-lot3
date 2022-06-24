@@ -43,8 +43,21 @@ public class Main extends Application {
         creer.show();
     }
 
-    public static void ouvrirSupprimer() {
+    public static void ouvrirSupprimer(Emplacement e) {
+        supprimer.init(e);
         supprimer.show();
+    }
+
+    public static void ajouterEmplacement(Emplacement e) {
+        camping.ajouterEmplacement(e);
+    }
+
+    public static void supprimerEmplacement(Emplacement e) {
+        camping.supprimerEmplacement(e);
+    }
+
+    public static void rafraichirConsulter() {
+        consulter.init();
     }
 
     public static void main(String[] args) {

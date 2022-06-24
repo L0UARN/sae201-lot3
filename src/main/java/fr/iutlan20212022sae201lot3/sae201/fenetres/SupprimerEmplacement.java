@@ -1,5 +1,7 @@
 package fr.iutlan20212022sae201lot3.sae201.fenetres;
 
+import fr.iutlan20212022sae201lot3.sae201.Main;
+import fr.iutlan20212022sae201lot3.sae201.donnees.Emplacement;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +18,7 @@ public class SupprimerEmplacement extends Stage {
     private Label texte;
     private Button valider;
     private Button annuler;
+    private Emplacement cible;
 
     public SupprimerEmplacement() {
         this.setTitle("Supprimer un emplacement");
@@ -36,8 +39,17 @@ public class SupprimerEmplacement extends Stage {
         annuler = new Button("Non, ne pas supprimer");
 
         annuler.setOnAction(e -> this.close());
+        valider.setOnAction(e -> {
+            Main.supprimerEmplacement(cible);
+            Main.rafraichirConsulter();
+            this.close();
+        });
 
         remplir();
+    }
+
+    public void init(Emplacement e) {
+        this.cible = e;
     }
 
     private void remplir() {

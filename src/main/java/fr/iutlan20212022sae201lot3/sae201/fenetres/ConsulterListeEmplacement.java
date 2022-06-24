@@ -73,13 +73,16 @@ public class ConsulterListeEmplacement extends Stage{
         this.setHeight(750);
         this.setMinWidth(1250);
         this.setMinHeight(750);
+        this.initModality(Modality.APPLICATION_MODAL);
 
         this.setResizable(true);
         this.setScene(new Scene(creerContenu()));
     }
 
     public void init() {
+        listeEmplacementObservable.clear();
         listeEmplacementObservable.addAll(Main.getEmplacements());
+        tableEmplacement.setItems(listeEmplacementObservable);
     }
 
     public Parent creerContenu() {
@@ -91,7 +94,6 @@ public class ConsulterListeEmplacement extends Stage{
 
         tableEmplacement.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         //Création des colonnes des tables
-        tableEmplacement.setItems(listeEmplacementObservable);
 
         TableColumn<Emplacement,Integer> colonne1 = new TableColumn<Emplacement,Integer>("Numéro");
         colonne1.setCellValueFactory(new PropertyValueFactory<Emplacement,Integer>("numero"));
@@ -206,7 +208,7 @@ public class ConsulterListeEmplacement extends Stage{
         BooleanBinding emplacementNonSelectionne = tableEmplacement.getSelectionModel().selectedIndexProperty().isEqualTo(-1);
         BTNsupprimerEmplacement.disableProperty().bind(emplacementNonSelectionne);
 
-        BTNsupprimerEmplacement.setOnAction(e -> Main.ouvrirSupprimer());
+        BTNsupprimerEmplacement.setOnAction(e -> Main.ouvrirSupprimer(tableEmplacement.getSelectionModel().getSelectedItem()));
         BTNcreerEmplacement.setOnAction(e -> Main.ouvrirCreer());
 
         racine.getChildren().addAll(tableEmplacement,labelRechercheEmplacement,

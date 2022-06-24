@@ -1,5 +1,6 @@
 package fr.iutlan20212022sae201lot3.sae201.fenetres;
 
+import fr.iutlan20212022sae201lot3.sae201.Main;
 import fr.iutlan20212022sae201lot3.sae201.donnees.Camping;
 import fr.iutlan20212022sae201lot3.sae201.donnees.Categorie;
 import fr.iutlan20212022sae201lot3.sae201.donnees.Emplacement;
@@ -23,24 +24,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 
 public class CreerEmplacement extends Stage {
-
-    // variables temporaire en attendant de les relier a camping
-    private ArrayList<Emplacement> alEmplacement = new ArrayList<>(180);
-//    private ArrayList<Categorie> arCategorie = new ArrayList<>(3);
-    private Categorie simple = new Categorie(NomCategorie.EMPLACEMENT_SIMPLE, 15, 50.0f, 5);
-    private Categorie grandLuxe = new Categorie(NomCategorie.MOBILHOME_GRAND_LUXE, 12, 40.0f, 3);
-    private Categorie standard = new Categorie(NomCategorie.MOBILHOME_STANDARD, 10, 30.0f, 2);
-    private ObservableList<Categorie> olCategorie = FXCollections.observableArrayList(simple, grandLuxe, standard);
     private Label lbNumero = new Label("Numero");
     private Label lbCategorie = new Label("Catégorie");
     private Label lbErreur = new Label("Erreur: Le numéro d'emplacement doit être compris en 1 et 180.");
     private TextField tfNumero = new TextField();
-    private ChoiceBox<Categorie> cbCategorie = new ChoiceBox<Categorie>(olCategorie);
+    private ChoiceBox<NomCategorie> cbCategorie = new ChoiceBox<NomCategorie>();
     private Button bnCreer = new Button("Créer");
     private Button bnAnnuler = new Button("Annuler");
 
@@ -54,6 +49,8 @@ public class CreerEmplacement extends Stage {
         setHeight(700);
         setMinWidth(500);
         setMinHeight(200);
+        this.initStyle(StageStyle.UTILITY);
+        this.initModality(Modality.APPLICATION_MODAL);
 
         Scene scene = new Scene(contenu());
         this.setScene(scene);
@@ -80,6 +77,8 @@ public class CreerEmplacement extends Stage {
             return !(valeur > 0 && valeur <= 180);
         }, tfNumero.textProperty());
         lbErreur.visibleProperty().bind(erreurAffichee);
+
+        cbCategorie.setItems(FXCollections.observableList(NomCategorie.toutes()));
 
         BorderPane primary = new BorderPane();
 
@@ -145,11 +144,11 @@ public class CreerEmplacement extends Stage {
 
     public void creerEmplacement(ActionEvent e) {
         int valeur = Integer.parseInt(tfNumero.getText());
+        NomCategorie categorie = cbCategorie.getValue();
 
-        if (valeur > 0 && valeur <= 180) {
-            System.out.println(cbCategorie.getValue());
-            alEmplacement.add(new Emplacement(valeur, cbCategorie.getValue().getCategorie()));
-        }
+        Main.ajouterEmplacement(new Emplacement(valeur, categorie));
+        Main.rafraichirConsulter();
+        this.close();
     }
 
 }
