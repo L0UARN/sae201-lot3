@@ -1,5 +1,6 @@
 package fr.iutlan20212022sae201lot3.sae201.donnees;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,8 +9,8 @@ public class Contrat {
     private Emplacement emplacement;
     private String souhaits;
     private ArrayList<Prestation> prestations;
-    private Date debut;
-    private Date fin;
+    private LocalDate debut;
+    private LocalDate fin;
     private boolean etatCaution;
     private boolean etatAcompte;
     private boolean etatSolde;
@@ -17,7 +18,7 @@ public class Contrat {
     private float acompte;
     private float solde;
 
-    public Contrat(Client client, Emplacement emplacement, String souhaits, Date debut, Date fin, float caution, float acompte, float solde) {
+    public Contrat(Client client, Emplacement emplacement, String souhaits, LocalDate debut, LocalDate fin, float caution, float acompte, float solde) {
         this.client = client;
         this.emplacement = emplacement;
         this.souhaits = souhaits;
@@ -30,6 +31,8 @@ public class Contrat {
         this.caution = caution;
         this.acompte = acompte;
         this.solde = solde;
+
+        emplacement.ajouterReservation(debut, fin);
     }
 
     public Client getClient() {
@@ -48,11 +51,11 @@ public class Contrat {
         return prestations;
     }
 
-    public Date getDebut() {
+    public LocalDate getDebut() {
         return debut;
     }
 
-    public Date getFin() {
+    public LocalDate getFin() {
         return fin;
     }
 

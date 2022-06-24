@@ -9,14 +9,7 @@ import fr.iutlan20212022sae201lot3.sae201.donnees.NomCategorie;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.*;
 import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -35,6 +28,13 @@ public class ConsulterListeEmplacement extends Stage{
     private Button BTNvalideRecherche = new Button("Valider la saisie");
     //Bouton pour annuler la saisie
     private Button BTNannuleRecherche = new Button("Annuler la recherche");
+
+    private Label debutLabel = new Label("Date de debut de periode :");
+    private DatePicker debut = new DatePicker();
+    private Label finLabel = new Label("Date de fin de periode :");
+    private DatePicker fin = new DatePicker();
+    private Button BTNvalidePeriode = new Button("Valider la periode");
+    private Button BTNannulePeriode = new Button("Annuler la periode");
 
     //Bouton pour creer un emplacement
     private Button BTNcreerEmplacement = new Button("Créer un emplacement");
@@ -107,10 +107,16 @@ public class ConsulterListeEmplacement extends Stage{
 
         labelRechercheEmplacement.setFont(new Font("Arial", 19));
         labelFiltrerEmplacement.setFont(new Font("Arial", 19));
+        debutLabel.setFont(new Font("Arial", 19));
+        finLabel.setFont(new Font("Arial", 19));
 
         //Taille des éléments
         BTNvalideRecherche.setPrefSize(250.0, 25.0);
         BTNannuleRecherche.setPrefSize(250.0, 25.0);
+        debut.setPrefSize(250.0, 25.0);
+        fin.setPrefSize(250.0, 25.0);
+        BTNvalidePeriode.setPrefSize(250.0, 25.0);
+        BTNannulePeriode.setPrefSize(250.0, 25.0);
         BTNsupprimerEmplacement.setPrefSize(250.0, 40.0);
         BTNcreerEmplacement.setPrefSize(250.0, 40.0);
         BTNfermer.setPrefSize(250.0, 25.0);
@@ -144,11 +150,26 @@ public class ConsulterListeEmplacement extends Stage{
         AnchorPane.setTopAnchor(boutonFiltre, 230.0);
         AnchorPane.setRightAnchor(boutonFiltre, 25.0);
 
+        AnchorPane.setTopAnchor(debutLabel, 320.0);
+        AnchorPane.setRightAnchor(debutLabel, 40.0);
+        AnchorPane.setTopAnchor(debut, 350.0);
+        AnchorPane.setRightAnchor(debut, 25.0);
+
+        AnchorPane.setTopAnchor(finLabel, 390.0);
+        AnchorPane.setRightAnchor(finLabel, 65.0);
+        AnchorPane.setTopAnchor(fin, 425.0);
+        AnchorPane.setRightAnchor(fin, 25.0);
+
+        AnchorPane.setTopAnchor(BTNvalidePeriode, 460.0);
+        AnchorPane.setRightAnchor(BTNvalidePeriode, 25.0);
+        AnchorPane.setTopAnchor(BTNannulePeriode, 490.0);
+        AnchorPane.setRightAnchor(BTNannulePeriode, 25.0);
+
         //BTNEmplacement
-        AnchorPane.setTopAnchor(BTNcreerEmplacement, 400.0);
+        AnchorPane.setTopAnchor(BTNcreerEmplacement, 600.0);
         AnchorPane.setRightAnchor(BTNcreerEmplacement, 25.0);
 
-        AnchorPane.setTopAnchor(BTNsupprimerEmplacement, 450.0);
+        AnchorPane.setTopAnchor(BTNsupprimerEmplacement, 650.0);
         AnchorPane.setRightAnchor(BTNsupprimerEmplacement, 25.0);
 
         AnchorPane.setBottomAnchor(BTNfermer, 10.0);
@@ -183,7 +204,7 @@ public class ConsulterListeEmplacement extends Stage{
         BTNvalideRecherche.disableProperty().bind(TFsaisieRecherche.textProperty().isEmpty());
 
         BTNannuleRecherche.setOnAction(e ->{
-            tableEmplacement.setItems(listeEmplacementObservable);
+            Main.rafraichirConsulter();
         });
 
         BTNfermer.setOnAction(e->{
@@ -205,6 +226,21 @@ public class ConsulterListeEmplacement extends Stage{
             tableEmplacement.setItems(listeEmplacementObservable);
         });
 
+        BTNvalidePeriode.setOnAction(e -> {
+            listeCorrespondance.clear();
+            for (Emplacement emp : listeEmplacementObservable) {
+                if (emp.estLibreSurPeriode(debut.getValue(), fin.getValue())) {
+                    listeCorrespondance.add(emp);
+                }
+            }
+
+            tableEmplacement.setItems(listeCorrespondance);
+        });
+
+        BTNannulePeriode.setOnAction(e ->{
+            Main.rafraichirConsulter();
+        });
+
         BooleanBinding emplacementNonSelectionne = tableEmplacement.getSelectionModel().selectedIndexProperty().isEqualTo(-1);
         BTNsupprimerEmplacement.disableProperty().bind(emplacementNonSelectionne);
 
@@ -214,6 +250,7 @@ public class ConsulterListeEmplacement extends Stage{
         racine.getChildren().addAll(tableEmplacement,labelRechercheEmplacement,
                 TFsaisieRecherche,BTNvalideRecherche,
                 BTNannuleRecherche,boutonFiltre,labelFiltrerEmplacement,
+                debutLabel, debut, finLabel, fin, BTNvalidePeriode, BTNannulePeriode,
                 BTNcreerEmplacement,BTNsupprimerEmplacement,BTNfermer);
 
         return racine;

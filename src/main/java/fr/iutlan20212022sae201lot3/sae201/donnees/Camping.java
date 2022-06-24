@@ -61,4 +61,8 @@ public class Camping {
     public ArrayList<Emplacement> getEmplacements() {
         return emplacements;
     }
+
+    public ArrayList<Client> getClients() {
+        return clients;
+    }
 }
