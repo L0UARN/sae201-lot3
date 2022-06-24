@@ -173,7 +173,7 @@ public class ConsulterListeEmplacement extends Stage{
 
             //ON recupere la saisie de l'utilisateur et on compare avec les valeurs du tableau
             for  (int i=0;i<listeEmplacementObservable.size();i++) {
-                if (String.valueOf(tableEmplacement.getItems().get(i).getNumero()).contains(emplacementChoisi)||tableEmplacement.getItems().get(i).getCategorie().toString().toLowerCase(Locale.ROOT).contains(emplacementChoisi)) {
+                if (String.valueOf(tableEmplacement.getItems().get(i).getNumero()).contains(emplacementChoisi)||tableEmplacement.getItems().get(i).getCategorie().toString().toLowerCase().contains(emplacementChoisi.toLowerCase())) {
                     listeCorrespondance.add(tableEmplacement.getItems().get(i));
                 }
             }
